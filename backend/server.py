@@ -52,7 +52,7 @@ class DocumentAnalysis(BaseModel):
     document_id: str
     filename: str
     document_type: str
-    full_document_text: str
+    full_document_text: Optional[str] = None
     clauses: List[ClauseAnalysis]
     summary: str
     recommendations: List[str]
