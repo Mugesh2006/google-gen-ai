@@ -199,6 +199,130 @@ const DocumentUpload = ({ onAnalysisComplete }) => {
   );
 };
 
+const DocumentWithHighlights = ({ analysis }) => {
+  const { full_document_text, clauses } = analysis;
+  
+  // Create highlighting function
+  const getHighlightedDocument = () => {
+    if (!full_document_text || !clauses.length) {
+      return full_document_text;
+    }
+
+    let highlightedText = full_document_text;
+    const highlights = [];
+
+    // Sort clauses by risk level for processing order (high risk first)
+    const sortedClauses = [...clauses].sort((a, b) => {
+      const riskOrder = { high: 3, medium: 2, low: 1 };
+      return riskOrder[b.risk_level] - riskOrder[a.risk_level];
+    });
+
+    sortedClauses.forEach((clause, index) => {
+      const clauseText = clause.clause_text.trim();
+      
+      // Find the clause in the document (case insensitive, flexible matching)
+      const regex = new RegExp(clauseText.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi');
+      const match = highlightedText.match(regex);
+      
+      if (match) {
+        const startIndex = highlightedText.search(regex);
+        const endIndex = startIndex + match[0].length;
+        
+        highlights.push({
+          start: startIndex,
+          end: endIndex,
+          risk_level: clause.risk_level,
+          risk_score: clause.risk_score,
+          explanation: clause.explanation,
+          id: clause.id,
+          originalText: match[0]
+        });
+      }
+    });
+
+    // Sort highlights by position to avoid overlapping issues
+    highlights.sort((a, b) => a.start - b.start);
+
+    // Build JSX with highlights
+    const elements = [];
+    let lastIndex = 0;
+
+    highlights.forEach((highlight, index) => {
+      // Add text before highlight
+      if (highlight.start > lastIndex) {
+        elements.push(
+          <span key={`text-${index}`}>
+            {highlightedText.substring(lastIndex, highlight.start)}
+          </span>
+        );
+      }
+
+      // Add highlighted text
+      const riskClass = 
+        highlight.risk_level === 'high' ? 'bg-red-200 border-red-400 text-red-900' :
+        highlight.risk_level === 'medium' ? 'bg-amber-200 border-amber-400 text-amber-900' :
+        'bg-emerald-200 border-emerald-400 text-emerald-900';
+
+      elements.push(
+        <span
+          key={`highlight-${index}`}
+          className={`${riskClass} px-1 py-0.5 rounded border-l-4 font-medium cursor-pointer hover:shadow-md transition-all relative group`}
+          title={`${highlight.risk_level.toUpperCase()} RISK (${highlight.risk_score}/10): ${highlight.explanation}`}
+        >
+          {highlight.originalText}
+          <div className="absolute top-full left-0 mt-2 p-3 bg-gray-900 text-white text-sm rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 max-w-xs">
+            <div className="font-semibold mb-1">
+              {highlight.risk_level.toUpperCase()} RISK ({highlight.risk_score}/10)
+            </div>
+            <div className="text-xs">{highlight.explanation}</div>
+          </div>
+        </span>
+      );
+
+      lastIndex = highlight.end;
+    });
+
+    // Add remaining text
+    if (lastIndex < highlightedText.length) {
+      elements.push(
+        <span key="text-end">
+          {highlightedText.substring(lastIndex)}
+        </span>
+      );
+    }
+
+    return elements;
+  };
+
+  return (
+    <div className="bg-slate-50 p-6 rounded-lg border-2 border-slate-200 max-w-none">
+      <div className="mb-4 flex items-center gap-4">
+        <h3 className="text-lg font-semibold text-slate-800">Full Document with Risk Highlights</h3>
+        <div className="flex items-center gap-4 text-sm">
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 bg-red-200 border border-red-400 rounded"></div>
+            <span>High Risk</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 bg-amber-200 border border-amber-400 rounded"></div>
+            <span>Medium Risk</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 bg-emerald-200 border border-emerald-400 rounded"></div>
+            <span>Low Risk</span>
+          </div>
+        </div>
+      </div>
+      <div className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap font-mono max-h-96 overflow-y-auto">
+        {getHighlightedDocument()}
+      </div>
+      <div className="mt-4 text-xs text-slate-500">
+        💡 Hover over highlighted sections to see risk explanations
+      </div>
+    </div>
+  );
+};
+
 const AnalysisResults = ({ analysis }) => {
   if (!analysis) return null;
 
