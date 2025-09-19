@@ -403,11 +403,13 @@ const AnalysisResults = ({ analysis }) => {
         </TabsList>
 
         <TabsContent value="clauses" className="space-y-4 mt-6">
+          <DocumentWithHighlights analysis={analysis} />
+          
           <Card>
             <CardHeader>
-              <CardTitle>Clause Risk Analysis</CardTitle>
+              <CardTitle>Risk Analysis Summary</CardTitle>
               <CardDescription>
-                Detailed breakdown of risky clauses found in your document
+                Quick overview of all identified risks in your document
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
@@ -426,7 +428,7 @@ const AnalysisResults = ({ analysis }) => {
                         )}
                       </div>
                       <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded border-l-4 border-slate-300 mb-3">
-                        "{clause.clause_text}"
+                        "{clause.clause_text.substring(0, 200)}{clause.clause_text.length > 200 ? '...' : ''}"
                       </p>
                       <div className="bg-blue-50 p-3 rounded-lg border-l-4 border-blue-400">
                         <p className="text-sm text-blue-900 font-medium mb-1">Why this is risky:</p>
