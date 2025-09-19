@@ -1,0 +1,33 @@
+SOFTWARE LICENSE AGREEMENT
+
+This Software License Agreement ("Agreement") is entered into effective as of the date of acceptance ("Effective Date") between TechCorp Inc., a Delaware corporation ("Licensor") and the individual or entity accepting this Agreement ("Licensee").
+
+1. GRANT OF LICENSE
+Subject to the terms and conditions of this Agreement, Licensor hereby grants to Licensee a non-exclusive, non-transferable license to use the software ("Software") solely for Licensee's internal business purposes.
+
+2. AUTOMATIC RENEWAL
+This Agreement shall automatically renew for successive one-year terms unless either party provides written notice of non-renewal at least 90 days prior to the end of the current term. Failure to provide such notice will result in automatic renewal at the then-current pricing.
+
+3. INDEMNIFICATION
+Licensee agrees to indemnify, defend, and hold harmless Licensor from and against any and all claims, damages, losses, costs, and expenses (including reasonable attorneys' fees) arising out of or resulting from Licensee's use of the Software, including but not limited to any violation of this Agreement.
+
+4. LIMITATION OF LIABILITY
+IN NO EVENT SHALL LICENSOR BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, OR ANY DAMAGES FOR LOSS OF PROFITS, REVENUE, DATA, OR USE, INCURRED BY LICENSEE OR ANY THIRD PARTY, WHETHER IN AN ACTION IN CONTRACT OR TORT.
+
+5. TERMINATION
+Licensor may terminate this Agreement immediately upon written notice if Licensee breaches any provision of this Agreement. Upon termination, all licenses granted hereunder shall immediately cease.
+
+6. DATA COLLECTION AND USAGE
+Licensor may collect, store, and analyze usage data, personal information, and business data from Licensee's use of the Software for any purpose, including but not limited to product improvement, marketing, and sharing with third-party partners.
+
+7. EXCLUSIVE DEALING
+During the term of this Agreement, Licensee agrees not to license, purchase, or use any competing software products or services from any other vendor.
+
+8. DISPUTE RESOLUTION
+Any disputes arising under this Agreement shall be resolved exclusively through binding arbitration in Delaware. Licensee waives any right to jury trial or class action proceedings.
+
+9. PENALTY FEES
+Late payment of fees will result in a penalty charge of 2% per month on the outstanding balance. Licensee is responsible for all collection costs and legal fees.
+
+10. GOVERNING LAW
+This Agreement shall be governed by and construed in accordance with the laws of Delaware, without regard to its conflict of laws principles.
