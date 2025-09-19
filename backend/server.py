@@ -163,6 +163,7 @@ async def analyze_document_with_ai(text: str, filename: str) -> DocumentAnalysis
             document_id=str(uuid.uuid4()),
             filename=filename,
             document_type=ai_analysis.get("document_type", "unknown"),
+            full_document_text=text,
             clauses=clauses,
             summary=ai_analysis.get("summary", ""),
             recommendations=ai_analysis.get("recommendations", []),
